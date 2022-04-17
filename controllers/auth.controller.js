@@ -1,13 +1,46 @@
-// import authService from '../services/auth.service';
+import * as authService from '../services/auth.service';
 import { RESPONSE } from '../common/constants';
 import { responseSuccess, responseSuccessWithData, responseError } from './base.controller';
 
 const login = async (req, res) => {
-  res.send('login');
+  try {
+    const { email, password } = req.body;
+    const data = await authService.login(email, password);
+    responseSuccessWithData(res, data, RESPONSE.LOGIN_SUCCESS);
+  } catch (error) {
+    console.log(error);
+    responseError(res, error.message);
+  }
 };
 
 const register = async (req, res) => {
-  res.send('register');
+  try {
+    await authService.register(req.body);
+    responseSuccess(res, RESPONSE.REGISTER_SUCCESS);
+  } catch (error) {
+    console.log(error);
+    responseError(res, error.message);
+  }
 };
 
-export { login, register };
+const verifyEmail = async (req, res) => {
+  try {
+    await authService.verifyEmail(req.params.email, req.query.token);
+    responseSuccess(res, RESPONSE.VERIFY_EMAIL_SUCCESS);
+  } catch (error) {
+    console.log(error);
+    responseError(res, error.message);
+  }
+};
+
+const sendVerifyEmail = async (req, res) => {
+  try {
+    await authService.sendVerifyEmail(req.params.email);
+    responseSuccess(res, RESPONSE.SEND_VERIFY_EMAIL_SUCCESS);
+  } catch (error) {
+    console.log(error);
+    responseError(res, error.message);
+  }
+};
+
+export { login, register, verifyEmail, sendVerifyEmail };

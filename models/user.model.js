@@ -11,20 +11,10 @@ const model = {
     unique: true,
     trim: true,
   },
-  phone: {
+  email: {
     type: String,
-    required: [true, ERROR.PhoneIsRequired.toString()],
+    required: [true, ERROR.EmailIsRequired.toString()],
     unique: true,
-    trim: true,
-  },
-  province: {
-    type: String,
-    default: '',
-    trim: true,
-  },
-  district: {
-    type: String,
-    default: '',
     trim: true,
   },
   avata: {
@@ -35,6 +25,10 @@ const model = {
     type: String,
     required: [true, ERROR.PasswordIsRequired.toString()],
     select: false,
+  },
+  verify_email: {
+    type: Number,
+    default: 0,
   },
 };
 

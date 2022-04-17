@@ -1,1 +1,1 @@
-npm i -save dotenv express jsonwebtoken mongoose morgan multer
+npm i -save dotenv express jsonwebtoken mongoose morgan multer nodemailer

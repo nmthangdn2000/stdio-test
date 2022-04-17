@@ -6,6 +6,7 @@ const SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly'];
 const TOKEN_PATH = 'token.json';
 let O_AUTH_2_CLIENT = null;
 let DRIVE = null;
+let FOLDER_ID = '';
 
 const connect = async () => {
   try {
@@ -31,7 +32,7 @@ const authorize = async (credentials) => {
 };
 
 const getAccessToken = (oAuth2Client) => {
-  return new Promise(() => {
+  return new Promise((resolve) => {
     const authUrl = oAuth2Client.generateAuthUrl({
       access_type: 'offline',
       scope: SCOPES,
@@ -73,6 +74,25 @@ const listFiles = () => {
         });
       } else {
         console.log('No files found.');
+      }
+    }
+  );
+};
+
+const getFolderId = async () => {
+  // Using the NPM module 'async'
+  await DRIVE.files.list(
+    {
+      q: 'name="files upload"',
+      fields: 'nextPageToken, files(id, name, mimeType)',
+      spaces: 'drive',
+    },
+    function (err, res) {
+      if (err) {
+        // Handle error
+        console.error(err);
+      } else {
+        FOLDER_ID = res.data.files[0].id;
       }
     }
   );

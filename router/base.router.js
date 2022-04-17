@@ -6,7 +6,6 @@ const router = express.Router();
 let routes = [];
 
 const route = ({ method, url = '', action, middelware = [verifyUser] }) => {
-  console.log(url);
   if (middelware.length > 0 && middelware[0] != verifyUser) middelware = [verifyUser, ...middelware];
 
   routes.push({ method, url, action, middelware });
@@ -37,7 +36,7 @@ const addRoute = (route) => {
       router.delete(route.url, route.middelware, route.action);
       break;
     default:
-      router.get(route.url, route.action);
+      router.get(route.url, route.middelware, route.action);
       break;
   }
 };
