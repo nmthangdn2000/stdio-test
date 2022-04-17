@@ -15,6 +15,8 @@ const RESPONSE = {
   REGISTER_SUCCESS: 'Register Success',
   VERIFY_EMAIL_SUCCESS: 'Verify email success',
   SEND_VERIFY_EMAIL_SUCCESS: 'Send verify email success',
+  SEND_TOKEN_RESET_PASSWORD_SUCCESS: 'Send token reset password success',
+  CHANGE_PASSWORD_SUCCESS: 'change password success',
 };
 
 const ERROR = {
@@ -34,6 +36,8 @@ const ERROR = {
   PasswordIsRequired: 118,
   CantNotVerifyEmail: 119,
   CantNotSendVerifyEmail: 120,
+  CantNotResetPassword: 121,
+  CantNotUpdatePassword: 122,
 };
 
 export { LIMIT, HttpMethod, ERROR, RESPONSE };

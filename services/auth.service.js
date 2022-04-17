@@ -26,14 +26,14 @@ const register = async (data) => {
   });
   const user = await newUser.save();
   if (!user) throw new Error(ERROR.CanNotCreateUser);
-  const token = PasswordHash.sha512(tokenVerifyEmail(data.name, data.email));
-  mailer.sendMail(data.email, subject, html(data.name, data.email, token));
+  const token = PasswordHash.sha512(tokenVerifyEmail(data.name, data.email, user.updatedAt));
+  mailer.sendMail(data.email, subject, htmlVerifyEmail(data.name, data.email, token));
 };
 
 const verifyEmail = async (email, tokenUrl) => {
   const user = await User.findOne({ email }).lean();
-  const { _id, name } = user;
-  const token = PasswordHash.sha512(tokenVerifyEmail(name, email));
+  const { _id, name, updatedAt } = user;
+  const token = PasswordHash.sha512(tokenVerifyEmail(name, email, updatedAt));
   if (tokenUrl != token) throw new Error(ERROR.CantNotVerifyEmail);
   const update = await User.updateOne({ _id }, { verify_email: new Date(), updatedAt: new Date() });
   if (update.modifiedCount < 1) throw new Error(ERROR.CantNotVerifyEmail);
@@ -43,21 +43,54 @@ const sendVerifyEmail = async (email) => {
   if (!email) throw Error(ERROR.CantNotSendVerifyEmail);
   const user = await User.findOne({ email }).lean();
   if (!user) throw Error(ERROR.CantNotSendVerifyEmail);
-  const token = PasswordHash.sha512(tokenVerifyEmail(user.name, email));
-  mailer.sendMail(email, subject, html(user.name, email, token));
+  const { name, updatedAt } = user;
+  const token = PasswordHash.sha512(tokenVerifyEmail(name, email, updatedAt));
+  mailer.sendMail(email, subject, htmlVerifyEmail(name, email, token));
 };
 
-export { login, register, verifyEmail, sendVerifyEmail };
+const forgotPassword = async (email) => {
+  if (!email) throw Error(ERROR.CantNotResetPassword);
+  const user = await User.findOne({ email }).lean();
+  if (!user) throw Error(ERROR.CantNotResetPassword);
+  const { name, updatedAt } = user;
+  const token = PasswordHash.sha512(tokenResetPassword(name, email, updatedAt));
+  mailer.sendMail(email, subject, htmlResetPassword(name, email, token));
+};
+
+const resetPassword = async (email, tokenUrl) => {
+  const user = await User.findOne({ email }).lean();
+  const { name, updatedAt } = user;
+  const token = PasswordHash.sha512(tokenResetPassword(name, email, updatedAt));
+  if (tokenUrl != token) throw new Error(ERROR.CantNotResetPassword);
+};
+
+const changePassword = async (email, password, tokenUrl) => {
+  if (!email || !password || !tokenUrl) throw Error(ERROR.CantNotUpdatePassword);
+
+  const user = await User.findOne({ email }).lean();
+  if (!user) throw Error(ERROR.CantNotUpdatePassword);
+
+  const { name, updatedAt } = user;
+  const token = PasswordHash.sha512(tokenResetPassword(name, email, updatedAt));
+  if (tokenUrl != token) throw new Error(ERROR.CantNotUpdatePassword);
+
+  password = PasswordHash.sha512(password);
+  const update = await User.updateOne({ email }, { password, updatedAt: new Date() });
+  if (update.modifiedCount < 1) throw new Error(ERROR.CantNotUpdatePassword);
+};
+
+export { login, register, verifyEmail, sendVerifyEmail, forgotPassword, resetPassword, changePassword };
 
 const subject = 'Verify email';
 
-const tokenVerifyEmail = (name, email, password) => `${name}-${email}-${password}`;
+const tokenVerifyEmail = (name, email, password) => `${name}-${email}-${password}-verifyemail`;
+const tokenResetPassword = (name, email, password) => `${name}-${email}-${password}-resetpassword`;
 
 const endCodeToken = (data) => {
   return jwt.sign(data, appConfig.KEY_SECRET_JWT, { expiresIn: '30d' });
 };
 
-const html = (name, email, token) => `
+const htmlVerifyEmail = (name, email, token) => `
 <p>Xin chào <strong>${name}</strong></p>
 <p>Cảm ơn bạn đã đăng ký tài khoảng tại website khoi.com của chúng tôi</p>
 <p>
@@ -76,6 +109,27 @@ const html = (name, email, token) => `
     border-radius: 50px;
   " href="http://localhost:3000/api/verify/${email}?token=${token}">
   Xác thực email
+</a>
+<div style="margin-top: 20px">
+  <strong style="font-size: 50px"> Wellcome to khoi.com </strong>
+</div>
+`;
+
+const htmlResetPassword = (name, email, token) => `
+<p>Xin chào <strong>${name}</strong></p>
+<p>Để đặt lại mật khẩu của bạn tại website khoi.com vui lòng click vào button dưới đây:</p>
+<a style="
+    background-color: #4caf50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 50px;
+  " href="http://localhost:3000/api/password/reset/${email}?token=${token}">
+  Đặt lại mật khẩu
 </a>
 <div style="margin-top: 20px">
   <strong style="font-size: 50px"> Wellcome to khoi.com </strong>
