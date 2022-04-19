@@ -16,10 +16,12 @@ const getRouter = () => {
   routes.forEach((route) => {
     addRoute(route);
   });
+  routes = [];
   return router;
 };
 
 const addRoot = (initRoute) => {
+  router = express.Router();
   initRoute();
   return getRouter();
 };
