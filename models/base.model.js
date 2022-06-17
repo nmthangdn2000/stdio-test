@@ -1,5 +1,3 @@
-'use strict';
-
 import mongoose from 'mongoose';
 import errorMessageMongoose from '../common/errorMessage';
 
@@ -24,7 +22,7 @@ const createSchema = (name, model, index) => {
   });
 
   if (index) {
-    schema.index({ ...index, _id: 'text' });
+    schema.index({ ...index });
   }
 
   return schema;
@@ -43,6 +41,7 @@ const validator = (schema) => {
       for (var nameKey in error.keyValue) {
         key = nameKey;
       }
+      console.log(key);
       const code = errorMessageMongoose.getErrorMessage(key);
       return next(new Error(code));
     } else {
@@ -56,11 +55,11 @@ const createModel = ({ name = '', model = {}, index = null }) => {
   validator(schema);
   const myModel = mongoose.model(name, schema);
 
-  myModel.on('index', function (err) {
-    if (err) {
-      console.error('User index error: %s', err.message);
-    }
-  });
+  // myModel.on('index', function (err) {
+  //   if (err) {
+  //     console.error('User index error: %s', err.message);
+  //   }
+  // });
 
   return myModel;
 };

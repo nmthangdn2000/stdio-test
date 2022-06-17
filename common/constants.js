@@ -1,6 +1,7 @@
 'use strict';
 
 const LIMIT = 10;
+const PAGE = 1;
 
 const HttpMethod = {
   GET: 'GET',
@@ -33,11 +34,24 @@ const ERROR = {
   EmailIsExist: 115,
   UserIsRequired: 116,
   EmailIsRequired: 117,
-  PasswordIsRequired: 118,
-  CantNotVerifyEmail: 119,
-  CantNotSendVerifyEmail: 120,
-  CantNotResetPassword: 121,
-  CantNotUpdatePassword: 122,
+  InvalidEmail: 118,
+  PasswordIsRequired: 119,
+  CantNotVerifyEmail: 120,
+  CantNotSendVerifyEmail: 121,
+  CantNotResetPassword: 122,
+  CantNotUpdatePassword: 123,
+  EmailDoesNotExist: 124,
+  // categories 131 -
+  CanNotGetCategory: 131,
+  CanNotCreateCategory: 132,
+  CanNotDeleteCategory: 133,
+  CanNotUpdateCategory: 134,
+  CategoryIsExist: 135,
+  // posts 141 -
+  CanNotGetPosts: 141,
+  CanNotCreatePosts: 142,
+  CanNotDeletePosts: 143,
+  CanNotUpdatePosts: 144,
 };
 
-export { LIMIT, HttpMethod, ERROR, RESPONSE };
+export { LIMIT, PAGE, HttpMethod, ERROR, RESPONSE };

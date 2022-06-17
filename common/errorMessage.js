@@ -1,12 +1,10 @@
-'use strict';
-
 import { ERROR } from '../common/constants';
 
 class ErrorMessageMongoose {
   getErrorMessage = (key) => {
     switch (key) {
-      case 'phone':
-        return ERROR.PhoneIsExist;
+      case 'email':
+        return ERROR.EmailIsExist;
       case 'name':
         return ERROR.UserIsRequired;
       default:

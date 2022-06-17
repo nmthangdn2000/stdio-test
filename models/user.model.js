@@ -5,26 +5,31 @@ import { ERROR } from '../common/constants';
 const name = 'users';
 
 const model = {
-  name: {
+  userName: {
     type: String,
     required: [true, ERROR.UserIsRequired.toString()],
-    unique: true,
     trim: true,
   },
   email: {
     type: String,
-    required: [true, ERROR.EmailIsRequired.toString()],
     unique: true,
     trim: true,
+    required: [true, ERROR.EmailIsRequired.toString()],
+    validate: [isEmail, ERROR.InvalidEmail.toString()],
   },
-  avata: {
-    type: String,
-    default: 'avata-default.png',
-  },
+  // avata: {
+  //   type: String,
+  //   default: 'avata-default.png',
+  // },
   password: {
     type: String,
     required: [true, ERROR.PasswordIsRequired.toString()],
     select: false,
+  },
+  age: Number,
+  gender: {
+    type: String,
+    enum: ['Male', 'Female', 'Other'],
   },
   verify_email: {
     type: Number,
@@ -32,6 +37,11 @@ const model = {
   },
 };
 
-const index = { name: 'text', phone: 'text', district: 'text', province: 'text' };
+const index = { name: 'text', email: 'text' };
 
 export default BaseModel.createModel({ name, model, index });
+
+function isEmail(email) {
+  const re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  return re.test(email);
+}

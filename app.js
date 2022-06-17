@@ -10,11 +10,6 @@ import * as mailer from './helpers/mailer';
     await database.connect();
     // await drive.connect();
     // drive.listFiles();
-    // mailer.sendMail(
-    //   'uptimumdn2000@gmail.com',
-    //   'Test send Email',
-    //   '<a href="https://www.w3schools.com/nodejs/nodejs_email.asp">hsadhijashdjkaskjdkjsad</a>'
-    // );
   } catch (e) {
     console.log(`Cannot start server. Error: ${e}`);
   }

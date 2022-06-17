@@ -2,7 +2,7 @@ import multer from 'multer';
 
 const diskStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, './public/file');
+    cb(null, './public/images');
   },
   filename: (req, file, cb) => {
     const originalname = file.originalname.split('.');
