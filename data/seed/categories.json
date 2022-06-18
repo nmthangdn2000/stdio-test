@@ -1,0 +1,40 @@
+[{
+  "_id": {
+    "$oid": "62ac9f8fb2b38ceeed8e4bf6"
+  },
+  "name": "Thời tiết",
+  "slug": "thoi-tiet",
+  "avatar": "1655480207478-image.jpg",
+  "createdAt": {
+    "$numberLong": "1655480186969"
+  },
+  "updatedAt": {
+    "$numberLong": "1655480186969"
+  }
+},{
+  "_id": {
+    "$oid": "62aca894e0476ff268e59f69"
+  },
+  "name": "Trò chơi",
+  "slug": "tro-choi",
+  "avatar": "1655482516243-image.jpg",
+  "createdAt": {
+    "$numberLong": "1655482474244"
+  },
+  "updatedAt": {
+    "$numberLong": "1655482474244"
+  }
+},{
+  "_id": {
+    "$oid": "62acacbffef1c7eee2420abc"
+  },
+  "name": "Âm nhạc",
+  "slug": "am-nhac",
+  "avatar": "1655483583959-image.jpg",
+  "createdAt": {
+    "$numberLong": "1655482657460"
+  },
+  "updatedAt": {
+    "$numberLong": "1655482657460"
+  }
+}]

@@ -1,0 +1,85 @@
+[{
+  "_id": {
+    "$oid": "62aca4631a51ef11dc356c10"
+  },
+  "user": {
+    "$oid": "62ac8fafc43287c3f0f4c216"
+  },
+  "category": {
+    "$oid": "62ac9f8fb2b38ceeed8e4bf6"
+  },
+  "title": "Thời tiết",
+  "description": "Trời nắng",
+  "content": "Hôm nay trời nắng quá",
+  "status": "public",
+  "avatar": "1655481443305-image.jpg",
+  "createdAt": {
+    "$numberLong": "1655481401129"
+  },
+  "updatedAt": {
+    "$numberLong": "1655481401129"
+  }
+},{
+  "_id": {
+    "$oid": "62aca4ed1a51ef11dc356c17"
+  },
+  "user": {
+    "$oid": "62ac8fafc43287c3f0f4c216"
+  },
+  "category": {
+    "$oid": "62ac9f8fb2b38ceeed8e4bf6"
+  },
+  "title": "Thời tiết",
+  "description": "Trời nắng",
+  "content": "Hôm nay trời nắng quá",
+  "status": "draft",
+  "avatar": "1655481581940-image.jpg",
+  "createdAt": {
+    "$numberLong": "1655481401129"
+  },
+  "updatedAt": {
+    "$numberLong": "1655481401129"
+  }
+},{
+  "_id": {
+    "$oid": "62aca630b7b0f374cecf9e5d"
+  },
+  "user": {
+    "$oid": "62ac8fafc43287c3f0f4c216"
+  },
+  "category": {
+    "$oid": "62ac9f8fb2b38ceeed8e4bf6"
+  },
+  "title": "Thời tiết",
+  "description": "Mát quá",
+  "content": "Hôm nay trời nắng quá",
+  "status": "public",
+  "avatar": "1655482161961-image.png",
+  "createdAt": {
+    "$numberLong": "1655481709507"
+  },
+  "updatedAt": {
+    "$numberLong": "1655482161979"
+  }
+},{
+  "_id": {
+    "$oid": "62aca8d7e0476ff268e59f6d"
+  },
+  "user": {
+    "$oid": "62ac8ba01279a5a487268a6c"
+  },
+  "category": {
+    "$oid": "62aca894e0476ff268e59f69"
+  },
+  "title": "Thời tiết",
+  "description": "Trò chơi trên điện thoại",
+  "content": "Game chiến thuật này hay lắm mọi người ơi",
+  "status": "public",
+  "avatar": "1655482583218-image.jpg",
+  "createdAt": {
+    "$numberLong": "1655482474341"
+  },
+  "updatedAt": {
+    "$numberLong": "1655482474341"
+  }
+}]
